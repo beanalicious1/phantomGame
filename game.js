@@ -53,6 +53,10 @@ function Bomb() {
         this.velocity += this.gravity;
         this.y += this.velocity;
     }
+
+    this.draw = function () {
+        bombSprite.draw(renderingContext, this.x, this.y);
+    }
 }
 
 function removeMotion(evt){
