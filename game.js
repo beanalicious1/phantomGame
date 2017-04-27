@@ -10,6 +10,7 @@ var states = {
     Score: 2
 };
 var thebomb;
+var weaponlive = false;
 
 
 function main(){
@@ -52,10 +53,22 @@ function Bomb() {
     this.update = function () {
         this.velocity += this.gravity;
         this.y += this.velocity;
+
+        if (this.y >= 380) { //this is when bomb hits the stage
+            weaponlive = false;
+        }
     }
 
     this.draw = function () {
         bombSprite.draw(renderingContext, this.x, this.y);
+    }
+}
+
+function addbomb() {
+    if (!weaponlive) {
+        weaponlive = true;
+        thebomb = new Bomb();
+        thebomb.jump();
     }
 }
 
@@ -130,13 +143,23 @@ function gameLoop(){
     window.requestAnimationFrame(gameLoop);
 }
 
+
+
 function update(){
     myphantom.update();
+
+    if (weaponlive) {
+        thebomb.update();
+    }
 }
 
 function render(){
     backgroundSprite.draw(renderingContext, 0, 0);
     myphantom.draw(renderingContext);
+
+    if (weaponlive) {
+        thebomb.draw();
+    }
 }
 
 
